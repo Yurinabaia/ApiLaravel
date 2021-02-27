@@ -36,6 +36,11 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         //
+       $marca = Marca::create($request->all());//Alimentado o banco de dados.
+      //  dd($request->all());//Verificar se os dados estão chegando
+        //o metodo all() isolar os parametros que estamos recebendo
+        //esse faz com que visualizamos no Postman
+        return $marca;
     }
 
     /**
