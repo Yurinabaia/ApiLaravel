@@ -70,6 +70,10 @@ class MarcaController extends Controller
         //apenas temos que criar o construtor como acima foi criado
         $marcas = $this->marca->find($id);//Aqui estou buscando todos os dados
         //nesse caso usando ineção de model
+        if(empty($marcas)) 
+        {
+            return "recurso pesquisado não existe";
+        }
         return $marcas;
     }
     
@@ -125,7 +129,14 @@ class MarcaController extends Controller
  */
 //Usando injecao de idependecia no caso abaixo
         $marcas= $this->marca->find($id);
+        //O erro tem que ficar antes do update
+        if(empty($marcas)) 
+        {
+            return ['erro'=> 'impossivel atualizar a infomação, o requirimento solicitado não existe'];
+        }
+
         $marcas-> update($request->all());
+
         return  $marcas;
     }
 
@@ -158,6 +169,9 @@ class MarcaController extends Controller
     {
         //NÃO SE ESQUEÇA DE USAR O ALL(), com ele podemos visulizar os dados 
         $marcas = $this->marca->find($id);
+        if(empty($marcas)) {
+            return ['erro', 'dados não existe, impossivel de deletar'];
+        }
         $marcas->delete();//Deletando dados do banco
         return ['msg'=>'Foi deletado com suecesso '];
         
