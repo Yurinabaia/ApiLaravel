@@ -22,7 +22,7 @@ class MarcaController extends Controller
         //
         //$marca = Marca::all();//BUSCANDO VALORES QUE SE ENCONTRA NO BANCO DE DADOS
         $marcas = $this->marca->all();//segunda forma de busca dados, usando o INJEÇÃO DE MODEL
-        return $marcas;
+        return response()->json($marcas, 200);
     }
 
 
@@ -40,7 +40,7 @@ class MarcaController extends Controller
         //o metodo all() isolar os parametros que estamos recebendo
         //esse faz com que visualizamos no Postman
         $marcas = $this->marca->create($request->all());//segunda forma de criar dados para o banco, usando o INJEÇÃO DE MODEL
-        return $marcas;
+        return response()->json($marcas, 201);
     }
 
     /* //podemos usar esse caso abaixo se não quisermos trabalhar com injecao de model
@@ -72,9 +72,10 @@ class MarcaController extends Controller
         //nesse caso usando ineção de model
         if(empty($marcas)) 
         {
-            return "recurso pesquisado não existe";
+            return response()->json(['erro' => 'recurso pesquisado não existe'],404);//Implementado os erros para o 
+            //json verificar os erros
         }
-        return $marcas;
+        return response()->json($marcas,200);
     }
     
     /*//Podemos usar esse dados abaixo, se não quisermos usar injecao de model
@@ -132,12 +133,13 @@ class MarcaController extends Controller
         //O erro tem que ficar antes do update
         if(empty($marcas)) 
         {
-            return ['erro'=> 'impossivel atualizar a infomação, o requirimento solicitado não existe'];
+            return response()->json(['erro'=> 'impossivel atualizar a infomação, o requirimento solicitado não existe'],404);//Erro 404 para que o client
+            //cliet == front end consigar tratar os dados e mostra uma tela do erro para cliente
         }
 
         $marcas-> update($request->all());
 
-        return  $marcas;
+        return  response()->json($marcas,200);
     }
 
 /*
@@ -170,10 +172,12 @@ class MarcaController extends Controller
         //NÃO SE ESQUEÇA DE USAR O ALL(), com ele podemos visulizar os dados 
         $marcas = $this->marca->find($id);
         if(empty($marcas)) {
-            return ['erro', 'dados não existe, impossivel de deletar'];
+            return response()->json(['erro', 'dados não existe, impossivel de deletar'], 404);//passando para o client o erro 404
+            //o client é o front end da aplicação, com esse erro o front end consigar mostra a pagina para usuario
+            //pagina de erro
         }
         $marcas->delete();//Deletando dados do banco
-        return ['msg'=>'Foi deletado com suecesso '];
+        return response()->json(['msg'=>'Foi deletado com suecesso '],200);
         
     }
 }
