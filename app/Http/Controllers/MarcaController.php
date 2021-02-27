@@ -75,9 +75,21 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Marca $marca)
+    public function update(Request $request, Marca $marca) //Aqui temos dois parametros,
+    //request é o valor do usuario e $marca é o id do banco que vamos buscar
     {
-        //
+        /*
+        //Não esquece de colocar o ALL quando busca get no seu print_r
+        print_r($request->all()); //valor do usuario passa
+        echo "<hr>";
+       
+
+        print_r($marca->getAttributes());//valor no banco buscando pelos dados antigos
+        //esse dados é buscado pelo id 
+        //o getAttributes traz os valores do banco de dados
+ */
+        $marca->update($request->all());
+        return  $marca;
     }
 
     /**
