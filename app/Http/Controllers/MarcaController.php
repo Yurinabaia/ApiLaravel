@@ -12,9 +12,11 @@ class MarcaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()//Aqui é GET da nossa aplicação
     {
         //
+        $marca = Marca::all();//BUSCANDO VALORES QUE SE ENCONTRA NO BANCO DE DADOS
+        return $marca;
     }
 
     /**
@@ -33,7 +35,7 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)//Aqui é o POST da nossa aplicacao
     {
         //
        $marca = Marca::create($request->all());//Alimentado o banco de dados.
@@ -49,9 +51,10 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function show(Marca $marca)
+    public function show(Marca $marca)//Aqui é o get com parametro da nossa aplicação
     {
         //
+        return $marca;
     }
 
     /**
