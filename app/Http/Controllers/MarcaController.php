@@ -141,7 +141,7 @@ class MarcaController extends Controller
             return response()->json(['erro'=> 'impossivel atualizar a infomação, o requirimento solicitado não existe'],404);//Erro 404 para que o client
             //cliet == front end consigar tratar os dados e mostra uma tela do erro para cliente
         }
-
+        $request->validate($marcas->regras(), $marcas->feedBack());
         $marcas-> update($request->all());
 
         return  response()->json($marcas,200);
