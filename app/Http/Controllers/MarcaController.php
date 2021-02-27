@@ -136,14 +136,19 @@ class MarcaController extends Controller
 //Usando injecao de idependecia no caso abaixo
         $marcas= $this->marca->find($id);
         //O erro tem que ficar antes do update
+
+        //dd($request->method());//Nome da requisição, POST, PATCH/PUT OU DELETE
+        if($request->method() ==="PATCH") 
+        {
+            $marcas-> update($request->all());
+        }else
+            $request->validate($marcas->regras(), $marcas->feedBack());
+
         if(empty($marcas)) 
         {
             return response()->json(['erro'=> 'impossivel atualizar a infomação, o requirimento solicitado não existe'],404);//Erro 404 para que o client
             //cliet == front end consigar tratar os dados e mostra uma tela do erro para cliente
         }
-        $request->validate($marcas->regras(), $marcas->feedBack());
-        $marcas-> update($request->all());
-
         return  response()->json($marcas,200);
     }
 
