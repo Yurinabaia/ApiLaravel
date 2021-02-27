@@ -39,6 +39,20 @@ class MarcaController extends Controller
       //  dd($request->all());//Verificar se os dados estão chegando
         //o metodo all() isolar os parametros que estamos recebendo
         //esse faz com que visualizamos no Postman
+
+        $regras = [
+            'nome'=> 'required|unique:marcas',
+            'imagem' =>'required'
+        ];
+
+        $feedback = 
+        [
+            'required' => 'O campo :  atribuite é obrigaotorio',
+            'nome.unique' => 'O nome da marca já existe'
+        ];
+        $request->validate($regras, $feedback);//AQUI MOSTRA OS ERROS GERADOS QUANDO O CLIENT
+        //TENTAR ENVIAR UM POST SEM DADOS PARA SER CONSUMIDOS
+
         $marcas = $this->marca->create($request->all());//segunda forma de criar dados para o banco, usando o INJEÇÃO DE MODEL
         return response()->json($marcas, 201);
     }
