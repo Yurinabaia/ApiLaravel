@@ -19,15 +19,6 @@ class MarcaController extends Controller
         return $marca;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -57,16 +48,6 @@ class MarcaController extends Controller
         return $marca;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Marca  $marca
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Marca $marca)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -78,6 +59,8 @@ class MarcaController extends Controller
     public function update(Request $request, Marca $marca) //Aqui temos dois parametros,
     //request é o valor do usuario e $marca é o id do banco que vamos buscar
     {
+        //Aqui podemos usar o PUT para atualizar tudo
+        //Ou patch para atualizar por parte nossa API
         /*
         //Não esquece de colocar o ALL quando busca get no seu print_r
         print_r($request->all()); //valor do usuario passa
@@ -98,8 +81,12 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marca $marca)
+    public function destroy(Marca $marca)//O $marca é o ID para localizar os dados no banco
+    //o destroy é o delete
     {
-        //
+        //NÃO SE ESQUEÇA DE USAR O ALL(), com ele podemos visulizar os dados 
+        $marca->delete();//Deletando dados do banco
+        return ['msg'=>'Foi deletado com suecesso '];
+        
     }
 }
